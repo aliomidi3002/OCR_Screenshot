@@ -43,6 +43,7 @@ grim -g "$(slurp)" - | tesseract stdin stdout -l eng
 ```
 
 ### Translation Command
+This command captures a screenshot, performs OCR on it, stores the recognized text inside the variable temp_var and then opens Google Translate by adding that text to the translation URL. In other words, it extracts the text, saves it temporarily and automatically sends it to Google Translate in the browser.
 ```bash
 temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate"
 ```
@@ -55,10 +56,7 @@ temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://tr
 ```bash
 sudo apt update
 sudo apt install tesseract-ocr gnome-screenshot
-# For clipboard operations:
-sudo apt install wl-clipboard  # Wayland
-# OR
-sudo apt install xclip         # X11
+sudo apt install wl-clipboard
 ```
 
 ### Text Extraction Commands
