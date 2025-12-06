@@ -32,12 +32,12 @@ sudo apt install tesseract-ocr-fra   # French
 grim -g "$(slurp)" - | tesseract stdin stdout > ocr_result.txt
 ```
 
-#### Copy to Clipboard
+### Copy to Clipboard
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
 ```
 
-#### English Text Recognition
+### English Text Recognition
 Use the `-l` flag to specify the language. Replace `eng` with any installed Tesseract language code.
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout -l eng
