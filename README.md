@@ -38,7 +38,7 @@ grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
 ```
 
 ### English Text Recognition
-Use the `-l` flag to specify the language. Replace `eng` with any installed Tesseract language code.
+Use the `-l` flag to specify the language. Replace `eng` with any installed Tesseract language code. You can also combine multiple languages by joining their codes with a plus sign such as `eng+fas` for English and Farsi recognition.
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout -l eng
 ```
@@ -51,7 +51,7 @@ temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://tr
 
 ---
 
-## GNOME Approach (X11/Wayland Compatible)
+## GNOME-X11 Approach
 
 ### Installation
 ```bash
@@ -61,8 +61,6 @@ sudo apt install wl-clipboard
 ```
 
 ### Text Extraction Commands
-
-#### Copy to Clipboard
 ```bash
 gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout | wl-copy
 ```
