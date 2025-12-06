@@ -82,10 +82,14 @@ You can set similar key bindings on other distros or window managers. The syntax
 Add the following lines to your Hyprland config file, usually located at: `~/.config/hypr/hyprland.conf`
 
 Bind for OCR copy to clipboard (WIN + C)
-```bind = SUPER, C, exec, grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy```
+```text
+bind = SUPER, C, exec, grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
+```
 
 Bind for OCR translation (WIN + T)
-```bind = SUPER, T, exec, temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate"```
+```text
+bind = SUPER, T, exec, temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate"
+```
 
 
 
