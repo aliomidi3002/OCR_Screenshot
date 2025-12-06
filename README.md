@@ -77,6 +77,16 @@ This command captures a screenshot, performs OCR on it, stores the recognized te
 gnome-screenshot -a -f /tmp/screenshot.png && firefox "https://translate.google.com/?sl=en&tl=fa&text=$(tesseract /tmp/screenshot.png stdout)&op=translate"
 ```
 
+## Key Binding Hyprland for simple use
+You can set similar key bindings on other distros or window managers. The syntax will differ per environment, but the idea is the same. Assign any preferred key combination and point it to your OCR or translation command.
+Add the following lines to your Hyprland config file, usually located at: `~/.config/hypr/hyprland.conf`
+
+Bind for OCR copy to clipboard (WIN + C)
+```bind = SUPER, C, exec, grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy```
+
+Bind for OCR translation (WIN + T)
+```bind = SUPER, T, exec, temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate"```
+
 
 
 ## License
