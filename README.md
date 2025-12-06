@@ -5,15 +5,11 @@ It supports both Wayland and GNOME approaches for capturing and processing text 
 Users can save extracted text to files, copy it to the clipboard, or perform OCR in multiple languages.
 It also includes optional commands for quick translation of recognized text through a web browser.
 
----
-
 ## Note
 
 This project may not work on every distro or window manager.
 Make sure required tools like Tesseract, screenshot utilities and clipboard managers are installed.
 Wayland and GNOME methods behave differently based on the environment, so results can vary.
-
----
 
 ## Wayland Approach
 
@@ -22,10 +18,16 @@ Wayland and GNOME methods behave differently based on the environment, so result
 sudo apt update
 sudo apt install tesseract-ocr grim slurp wl-clipboard
 ```
+### Language Installation Guide
+```bash
+sudo apt install tesseract-ocr-eng   # English
+sudo apt install tesseract-ocr-fas   # Farsi or Persian
+sudo apt install tesseract-ocr-ara   # Arabic
+sudo apt install tesseract-ocr-spa   # Spanish
+sudo apt install tesseract-ocr-fra   # French
+```
 
 ### Text Extraction Commands
-
-#### Save to Text File
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout > ocr_result.txt
 ```
@@ -35,9 +37,9 @@ grim -g "$(slurp)" - | tesseract stdin stdout > ocr_result.txt
 grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
 ```
 
-#### Farsi/Persian Text Recognition
+#### English Text Recognition
 ```bash
-grim -g "$(slurp)" - | tesseract stdin stdout -l fas
+grim -g "$(slurp)" - | tesseract stdin stdout -l eng
 ```
 
 ### Translation Command
