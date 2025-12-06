@@ -38,6 +38,7 @@ grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
 ```
 
 #### English Text Recognition
+Use the `-l` flag to specify the language. Replace `eng` with any installed Tesseract language code.
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout -l eng
 ```
