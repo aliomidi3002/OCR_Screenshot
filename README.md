@@ -65,61 +65,16 @@ sudo apt install wl-clipboard
 gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout | wl-copy
 ```
 
-#### Save to Text File
+### English Text Recognition
+Use the `-l` flag to specify the language. Replace `eng` with any installed Tesseract language code. You can also combine multiple languages by joining their codes with a plus sign such as `eng+fas` for English and Farsi recognition
 ```bash
-gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout > ocr_result.txt
-```
-
-#### Farsi/Persian Text Recognition
-```bash
-gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout -l fas | wl-copy
+gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout -l eng | wl-copy
 ```
 
 ### Translation Command
+This command captures a screenshot, performs OCR on it, stores the recognized text inside the variable temp_var and then opens Google Translate by adding that text to the translation URL. In other words, it extracts the text, saves it temporarily and automatically sends it to Google Translate in the browse
 ```bash
 gnome-screenshot -a -f /tmp/screenshot.png && firefox "https://translate.google.com/?sl=en&tl=fa&text=$(tesseract /tmp/screenshot.png stdout)&op=translate"
 ```
-
----
-
-## Advanced Usage
-
-### Multi-language OCR
-```bash
-# English + Farsi
-grim -g "$(slurp)" - | tesseract stdin stdout -l eng+fas | wl-copy
-
-# GNOME version
-gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout -l eng+fas | wl-copy
-```
-
-### Custom Output File
-```bash
-# Wayland
-grim -g "$(slurp)" - | tesseract stdin stdout > ~/Documents/ocr_output.txt
-
-# GNOME  
-gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout > ~/Documents/ocr_output.txt
-```
-
-### With Error Handling
-```bash
-# Wayland
-grim -g "$(slurp)" - | tesseract stdin stdout && echo "OCR successful" || echo "OCR failed"
-
-# GNOME
-gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout && echo "OCR successful" || echo "OCR failed"
-```
-
----
-
-## Notes
-
-- **Compatibility**: This may not work on every distro or window manager.
-- **Wayland**: Uses `grim`/`slurp` for screenshots, supports direct stdin piping
-- **GNOME**: Uses `gnome-screenshot`, requires temporary files but works on both X11 and Wayland
-- **Language codes**: `eng` (English), `fas` (Farsi/Persian), `ara` (Arabic), `spa` (Spanish), etc.
-- The translation command opens Google Translate with English to Farsi translation
-
 
 
