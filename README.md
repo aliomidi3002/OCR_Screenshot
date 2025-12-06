@@ -1,17 +1,17 @@
-Here is the updated `README.md` with the **Notes** section moved to the top, right before the installation steps.
+## Project Description
 
-````markdown
-# Linux Screen OCR & Translation Tool
+This project provides simple screenshot to text extraction using Tesseract OCR on Linux environments.
+It supports both Wayland and GNOME approaches for capturing and processing text from any selected screen area.
+Users can save extracted text to files, copy it to the clipboard, or perform OCR in multiple languages.
+It also includes optional commands for quick translation of recognized text through a web browser.
 
-## Overview
-This documentation provides commands and scripts to extract text from screen areas using OCR (Optical Character Recognition) and translate it instantly. It is designed to bridge the gap between your desktop environment and Google Translate, specifically optimized for **English to Farsi** translation.
+---
 
-## Notes & Compatibility
-* **Compatibility**: This may not work on every distro or window manager. It relies on specific package managers (apt) and display servers.
-* **Wayland**: Uses `grim`/`slurp` for screenshots, supports direct stdin piping.
-* **GNOME**: Uses `gnome-screenshot`, requires temporary files but works on both X11 and Wayland.
-* **Language codes**: `eng` (English), `fas` (Farsi/Persian), `ara` (Arabic), `spa` (Spanish), etc.
-* **Translation**: The commands below open Google Translate with **English to Farsi** translation by default.
+## Note
+
+This project may not work on every distro or window manager.
+Make sure required tools like Tesseract, screenshot utilities and clipboard managers are installed.
+Wayland and GNOME methods behave differently based on the environment, so results can vary.
 
 ---
 
@@ -21,40 +21,35 @@ This documentation provides commands and scripts to extract text from screen are
 ```bash
 sudo apt update
 sudo apt install tesseract-ocr grim slurp wl-clipboard
-````
+```
 
 ### Text Extraction Commands
 
 #### Save to Text File
-
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout > ocr_result.txt
 ```
 
 #### Copy to Clipboard
-
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout | wl-copy
 ```
 
 #### Farsi/Persian Text Recognition
-
 ```bash
 grim -g "$(slurp)" - | tesseract stdin stdout -l fas
 ```
 
 ### Translation Command
-
 ```bash
-temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "[https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate](https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate)"
+temp_var=$(grim -g "$(slurp)" - | tesseract stdin stdout) && firefox "https://translate.google.com/?sl=en&tl=fa&text=$temp_var&op=translate"
 ```
 
------
+---
 
 ## GNOME Approach (X11/Wayland Compatible)
 
 ### Installation
-
 ```bash
 sudo apt update
 sudo apt install tesseract-ocr gnome-screenshot
@@ -67,35 +62,30 @@ sudo apt install xclip         # X11
 ### Text Extraction Commands
 
 #### Copy to Clipboard
-
 ```bash
 gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout | wl-copy
 ```
 
 #### Save to Text File
-
 ```bash
 gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout > ocr_result.txt
 ```
 
 #### Farsi/Persian Text Recognition
-
 ```bash
 gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout -l fas | wl-copy
 ```
 
 ### Translation Command
-
 ```bash
-gnome-screenshot -a -f /tmp/screenshot.png && firefox "[https://translate.google.com/?sl=en&tl=fa&text=$(tesseract](https://translate.google.com/?sl=en&tl=fa&text=$(tesseract) /tmp/screenshot.png stdout)&op=translate"
+gnome-screenshot -a -f /tmp/screenshot.png && firefox "https://translate.google.com/?sl=en&tl=fa&text=$(tesseract /tmp/screenshot.png stdout)&op=translate"
 ```
 
------
+---
 
 ## Advanced Usage
 
 ### Multi-language OCR
-
 ```bash
 # English + Farsi
 grim -g "$(slurp)" - | tesseract stdin stdout -l eng+fas | wl-copy
@@ -105,7 +95,6 @@ gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdo
 ```
 
 ### Custom Output File
-
 ```bash
 # Wayland
 grim -g "$(slurp)" - | tesseract stdin stdout > ~/Documents/ocr_output.txt
@@ -115,7 +104,6 @@ gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdo
 ```
 
 ### With Error Handling
-
 ```bash
 # Wayland
 grim -g "$(slurp)" - | tesseract stdin stdout && echo "OCR successful" || echo "OCR failed"
@@ -124,8 +112,15 @@ grim -g "$(slurp)" - | tesseract stdin stdout && echo "OCR successful" || echo "
 gnome-screenshot -a -f /tmp/screenshot.png && tesseract /tmp/screenshot.png stdout && echo "OCR successful" || echo "OCR failed"
 ```
 
-```
+---
 
-### Next Step
-Would you like me to write a short `bash` script file (e.g., `install.sh`) that automates that installation process so users don't have to copy-paste the commands one by one?
-```
+## Notes
+
+- **Compatibility**: This may not work on every distro or window manager.
+- **Wayland**: Uses `grim`/`slurp` for screenshots, supports direct stdin piping
+- **GNOME**: Uses `gnome-screenshot`, requires temporary files but works on both X11 and Wayland
+- **Language codes**: `eng` (English), `fas` (Farsi/Persian), `ara` (Arabic), `spa` (Spanish), etc.
+- The translation command opens Google Translate with English to Farsi translation
+
+
+
