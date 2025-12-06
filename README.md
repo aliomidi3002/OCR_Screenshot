@@ -1,3 +1,6 @@
+
+https://github.com/user-attachments/assets/d2e0d876-1342-473f-8fd8-ae2f7544e311
+
 ## Project Description
 
 This project provides simple screenshot to text extraction using Tesseract OCR on Linux environments.
